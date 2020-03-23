@@ -55,9 +55,22 @@
         <OnMatch>DENY</OnMatch>
     </turboFilter>
 
-
     <root level="info">
         <appender-ref ref="webprotege-all"/>
+    </root>
+
+    <appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender">
+        <!-- filter logs at or above a level -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <log>application.log</log>
+        <resourceType>gce_instance</resourceType>
+        <flushLevel>WARN</flushLevel> <!-- Optional : default ERROR -->
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CLOUD" />
     </root>
 
 </configuration>
